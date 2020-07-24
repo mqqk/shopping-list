@@ -19,25 +19,34 @@
 // *Do not alter index.html or main.css other than adding the links to the external JavaScript inside index.html. Write JavaScript code that works with the existing HTML and CSS to implement the required features.
 // Hint: you may find it helpful to read up on and use the following jQuery methods: .submit(), preventDefault(), toggleClass(), and closest().
 
-$(function (){
 
-    $('.js-shopping-list-form').submit(event=> {
-        event.preventDefault();
-        
-        const newItem= $(this).find('input[name="shopping-list-entry"]').val("");
-        const newHtml=`<li>
-        <span class="shopping-item">${newItem}</span>
-        <div class="shopping-item-controls">
-          <button class="shopping-item-toggle">
-            <span class="button-label">check</span>
-          </button>
-          <button class="shopping-item-delete">
-            <span class="button-label">delete</span>
-          </button>
-        </div>
-      </li>`;
-      $(".shopping-list").append(newHtml);
-    }) 
+    $('#js-shopping-list-form').submit(function(event) {
+      event.preventDefault();
+      const item = $(this).find('input[name="shopping-list-entry"]').val();
+
+      $('#shopping-list-entry').val('');
+  
+      $('.shopping-list').append(
+        `<li>
+          <span class="shopping-item">${item}</span>
+          <div class="shopping-item-controls">
+            <button class="shopping-item-toggle">
+              <span class="button-label">check</span>
+            </button>
+            <button class="shopping-item-delete">
+              <span class="button-label">delete</span>
+            </button>
+          </div>
+        </li>`);
+    });
+  
 
 
-})
+    $('.shopping-list').on('click','.shopping-item-delete',function(event){
+    $(this).closest('li').remove();
+    });
+
+    $('.shopping-list').on('click','.shopping-item-toggle',function(event){
+    $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
+
+    });

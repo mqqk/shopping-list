@@ -22,10 +22,11 @@
 
     $('#js-shopping-list-form').submit(function(event) {
       event.preventDefault();
+      //create "item" to assume the temporal value of the .submit
       const item = $(this).find('input[name="shopping-list-entry"]').val();
-
+        //reset #shopping-list-entry to an empty '' so that the box clears for next query
       $('#shopping-list-entry').val('');
-  
+        //append 'item' to the .shopping-list using the <li> html code
       $('.shopping-list').append(
         `<li>
           <span class="shopping-item">${item}</span>
@@ -41,12 +42,15 @@
     });
   
 
-
+    //bolo for a click on the shopping-list on the button .shopping-item-delete
     $('.shopping-list').on('click','.shopping-item-delete',function(event){
+        //when the click happens, use the closest (or parent 'li') and .remove ()
     $(this).closest('li').remove();
     });
-
+        //bolo for a click on the shopping-item-toggle
     $('.shopping-list').on('click','.shopping-item-toggle',function(event){
+        //when a click happens, located parent 'li', find the .shopping-item and .toggleClass
+        // to __checked, i'm not sure how shopping-item returns to unchecked on a subs click
     $(this).closest('li').find('.shopping-item').toggleClass('shopping-item__checked');
 
     });
